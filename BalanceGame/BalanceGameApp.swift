@@ -11,7 +11,7 @@ import SwiftUI
 struct BalanceGameApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            AccelerometerView()
         }
     }
 }
