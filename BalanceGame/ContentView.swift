@@ -13,22 +13,18 @@ struct AccelerometerView: View {
     let motionManager = CMMotionManager()
     let queue = OperationQueue()
     
-    @State private var pitch = Double.zero
-    @State private var yaw = Double.zero
-    @State private var roll = Double.zero
+    @State private var verticalInclination = Double.zero
+    @State private var horizontalInclination = Double.zero
     
     var body: some View {
         
         VStack{
-            Text("Pitch: \(pitch)")
-            Text("Yaw: \(yaw)")
-            Text("Roll: \(roll)")
                 Circle()
                     .frame(width: 50, height: 50)
                     .foregroundColor(.red)
-                    .offset(x: roll*100, y: pitch*100)
+                    .offset(x: horizontalInclination*50, y: verticalInclination*50)
             
-        }//Vstack
+        }
         .onAppear {
             print("ON APPEAR")
             self.motionManager.startDeviceMotionUpdates(to: self.queue) { (data: CMDeviceMotion?, error: Error?) in
@@ -43,9 +39,8 @@ struct AccelerometerView: View {
                 print("roll: \(attitude.roll)")
                 
                 DispatchQueue.main.async {
-                    self.pitch = attitude.pitch
-                    self.yaw = attitude.yaw
-                    self.roll = attitude.roll
+                    self.verticalInclination = attitude.pitch
+                    self.horizontalInclination = attitude.roll
                 }
             }
         }//.onappear
