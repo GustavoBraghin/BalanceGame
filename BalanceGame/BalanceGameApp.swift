@@ -7,11 +7,21 @@
 
 import SwiftUI
 
+class AppState: ObservableObject {
+    @Published var isOn: Bool
+    
+    init(isOn: Bool) {
+        self.isOn = isOn
+    }
+}
+
+
 @main
 struct BalanceGameApp: App {
     var body: some Scene {
         WindowGroup {
             AccelerometerView()
+                .environmentObject(AppState(isOn: false))
         }
     }
 }
